@@ -1,5 +1,4 @@
 import java.util.*;
-
 public class Mar23{
 
     //without dir array
@@ -238,24 +237,29 @@ public class Mar23{
         String str= "";
     }
 
-    public static pairSP shortestPath(int sr, int sc, int er, int ec, int[][] mat,int[][] dir, String[] dirS){
+    public static pairSP shortestPath(int sr, int sc, int er, int ec, int[][] dir, String[] dirS, boolean[][] mat){
+        if(sr== er && sc== ec){
+            pairSP base= new pairSP();
+            base.len= 0;
 
+            return base;
+        }
+        
         pairSP ans= new pairSP();
-        mat[sr][sc]= 0;
+        mat[sr][sc]= true;
         for(int d= 0; d< dir.length; d++){
             int r= sr+ dir[d][0];
-            int c= sc+ dir[d][0];
+            int c= sc+ dir[d][1];
 
-            if(r>= 0 && c>= 0 && r<= sr && c<= sc && mat[r][c]= 1){
-                pairSP recAns= shortestPath(r, c, er, ec, mat, dir, dirS);
-                if(recAns.len!= (int)1e9 && recAns.len+ 1< ans.len){
-                    ans.len= recAns.len+ 1;
-                    ans.str= recAns.str;
+            if(r>= 0 && c>= 0 && r<= er && c<= ec && mat[r][c]== false){
+                pairSP val= shortestPath(r, c, er, ec, dir, dirS, mat);
+                if(val.len!= (int)1e9 && val.len+ 1< ans.len){
+                    ans.len= val.len+ 1;
+                    ans.str= val.str+ dirS[d];
                 }
             }
         }
-        mat[sr][sc]= 1;
-
+        mat[sr][sc]= false;
         return ans;
     }
 
@@ -266,12 +270,12 @@ public class Mar23{
         // System.out.println(floodfill(0, 0, 2, 2, vis, dir, dirS, ""));
         // System.out.println(floodFillJump(0, 0, 2, 2, vis, dir, dirS, ""));
         
-        // int[][] dir= {{1, 0}, {0, -1}, {-1, 0}, {0, 1}};
-        // String[] dirS= {"d", "l", "u", "r"};
-        
-        // boolean[][] vis= new boolean[3][3];
+        int[][] dir= {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        String[] dirS= {"d", "r", "u", "l"};
+        boolean[][] vis= new boolean[4][4];
 
-        // System.out.println(shortestPath(0, 0, 3, 3, mat, dir, dirS, ));
+        pairSP val= shortestPath(0, 0, 3, 3, dir, dirS, vis);
+        System.out.println(val.len+ " "+ val.str);
 
     }
 
