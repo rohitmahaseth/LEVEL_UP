@@ -1,6 +1,5 @@
 //Recursion Trees Questions
 import java.util.*;
-import java.io.*;
 
 public class Mar28{
 
@@ -14,7 +13,7 @@ public class Mar28{
         
         String[] codes= {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};        
         ArrayList<String> ans= new ArrayList<>();
-        int tc= letterCombination(codes, digits, ans, 0, "");
+        letterCombination(codes, digits, ans, 0, "");
         System.out.println(ans);
     }  
         
@@ -39,7 +38,7 @@ public class Mar28{
         List<List<Integer>> ans= new ArrayList<>();
         List<Integer> rans= new ArrayList<>();
         Arrays.sort(nums);
-        int val= Permutations_2(nums, ans, rans);
+        Permutations_2(nums, ans, rans);
         return ans;
     }
     
@@ -71,7 +70,7 @@ public class Mar28{
         List<List<Integer>> ans= new ArrayList<>();
         List<Integer> rans= new ArrayList<>();
         Arrays.sort(candidates);
-        int val = Combination_Sum(candidates, target, 0, ans, rans);
+        Combination_Sum(candidates, target, 0, ans, rans);
         return ans;        
     }
     
@@ -103,7 +102,7 @@ public class Mar28{
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ans= new ArrayList<>();
         List<Integer> rans= new ArrayList<>();
-        int val = Combination_Sum_(candidates, target, 0, ans, rans);
+        Combination_Sum_(candidates, target, 0, ans, rans);
         return ans;        
     }
     
@@ -131,7 +130,7 @@ public class Mar28{
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans= new ArrayList<>();
         List<Integer> rans= new ArrayList<>();
-        int tc= Permutations(nums, ans, rans);
+        Permutations(nums, ans, rans);
         return ans;
     }
     

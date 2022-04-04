@@ -484,7 +484,7 @@ public class Mar30 {
     }
 
     public static void main(String[] args){      
-        boolean[][] boxes= new boolean[4][4];
+        // boolean[][] boxes= new boolean[4][4];
         // System.out.println(queenCombinations(3, boxes, 0, 0, ""));
         // System.out.println(queenPermutation(3, boxes, 0, ""));
         // System.out.println(queenCombinations2D_1(4, 4, 0, 0, ""));
@@ -493,8 +493,5 @@ public class Mar30 {
         // System.out.println(NQueens_Permutations(boxes, 4, 0, ""));
         crypto();
     }
-
-    
-    
-    
+ 
 }
