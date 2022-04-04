@@ -173,7 +173,7 @@ public class Mar25 {
     }
 
     public static void main(String[] args){
-        int[] coins= {2, 3, 5, 7};
+        // int[] coins= {2, 3, 5, 7};
         // System.out.println(coinChangePermutation_IN(coins, 10, ""));
         // System.out.println(coinChangeCombination_IN(coins, 10, 0, ""));
         // System.out.println(coinChangePermutation_SIN(coins, 10, ""));
