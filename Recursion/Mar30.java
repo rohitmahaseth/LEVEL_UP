@@ -1,4 +1,4 @@
-
+import java.util.*;
 //NQueens
 public class Mar30 {
     public static int queenCombinations(int tnq, boolean[] boxes, int idx, int qutn, String psf){
@@ -149,8 +149,7 @@ public class Mar30 {
 
         return count;
     }
-
-    
+ 
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> res=new ArrayList<>();
         int [][]board=new int[n][n];
@@ -216,16 +215,6 @@ public class Mar30 {
         }
         
         res.add(ls);
-    }
-
-    public static void main(String[] args){      
-        boolean[][] boxes= new boolean[4][4];
-        // System.out.println(queenCombinations(3, boxes, 0, 0, ""));
-        // System.out.println(queenPermutation(3, boxes, 0, ""));
-        // System.out.println(queenCombinations2D_1(4, 4, 0, 0, ""));
-        // System.out.println(queenPermutations2D_1(boxes, 4, 4, 0, ""));
-        // System.out.println(NQueens_Combinations(boxes, 4, 0, 0, ""));
-        // System.out.println(NQueens_Permutations(boxes, 4, 0, ""));
     }
 
     //workBreak leetcode
@@ -321,96 +310,190 @@ public class Mar30 {
         return true;
         
     }
-    
-}
 
+// //2nd Method
+//     public void solveSudoku(char[][] board) {
+//         ArrayList<Integer> list= new ArrayList<>();
+//         int n= 9;
+//         for(int i= 0; i< n; i++){
+//             for(int j= 0; j< n; j++){
+//                 if(board[i][j]== '.'){
+//                     list.add(i* n+ j);
+//                 }
+//             }
+//         }
+        
+//         boolean ans= sudokuSolver(board, list, 0);
+//     }
+    
+//     private boolean sudokuSolver(char[][] board, ArrayList<Integer> list, int idx){
+//         if(idx== list.size()){
+//             return true;
+//         }
+        
+//         int r= list.get(idx)/ 9;
+//         int c= list.get(idx)% 9;
+        
+//         for(int num= 1; num<= 9; num++){
+//             if(isPossible(board, r, c, num)){
+//                 board[r][c]= (char)('0'+ num);
+//                 if(sudokuSolver(board, list, idx+ 1)){
+//                     return true;
+//                 }
+//                 board[r][c]= '0';
+//             }
+//         }
+        
+//         return false;
+//     }
+    
+//     private boolean isPossible(char[][] board, int row, int col, int num){
+//         int[][] dir= {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+        
+//         for(int i= 0; i< dir.length; i++){
+//             for(int rad= 1; rad<= 9; rad++){
+//                 int r= row+ rad* dir[i][0];
+//                 int c= col+ rad* dir[i][1];
+//                 if(r>= 0 && c>= 0 && r< 9 && c< 9){
+//                     if(board[r][c]== (char)('0'+ num) ){
+//                         return false;
+//                     }
+//                 }   
+//                 else
+//                     break;
+//             }
+//         }
+        
+//         int i= 0;
+//         if(row>= 0 && row<= 2){
+//             i= 0;
+//         }
+//         else if(row>= 3 && row<= 5){
+//             i= 3;
+//         }
+//         else if(row>= 6 && row<= 8){
+//             i= 6;
+//         }
+        
+//         int j= 0;
+//         if(col>= 0 && col<= 2){
+//             j= 0;
+//         }
+//         else if(col>= 3 && col<= 5){
+//             j= 3;
+//         }
+//         else if(col>= 6 && col<= 8){
+//             j= 6;
+//         }
+        
+//         for(int n= i; n<= i+ 2; n++){
+//             for(int m= j; m<= j+ 2; m++){
+//                 if(board[n][m]== (char) ('0'+ num)){
+//                     return false;
+//                 }                   
+//             }
+//         }
+        
+//         return true;
+        
+//     }
 
-//2nd Method
-    public void solveSudoku(char[][] board) {
-        ArrayList<Integer> list= new ArrayList<>();
-        int n= 9;
-        for(int i= 0; i< n; i++){
-            for(int j= 0; j< n; j++){
-                if(board[i][j]== '.'){
-                    list.add(i* n+ j);
-                }
-            }
+    static String str1 = "send", str2 = "more", str3 = "money";
+    static boolean[] isNumUsed = new boolean[10];
+    static int[] mapping= new int[26];
+
+    private static int stringToNum(String str){
+        int res= 0;
+        for(int i= 0; i< str.length(); i++){
+            int val= mapping[str.charAt(i)- 'a'];
+            res= res* 10+ val;
         }
-        
-        boolean ans= sudokuSolver(board, list, 0);
+
+        return res;
     }
     
-    private boolean sudokuSolver(char[][] board, ArrayList<Integer> list, int idx){
-        if(idx== list.size()){
-            return true;
+    public static boolean isValidMapping(){
+        if(mapping[str1.charAt(0)- 'a']== 0){
+            return false;
         }
-        
-        int r= list.get(idx)/ 9;
-        int c= list.get(idx)% 9;
-        
-        for(int num= 1; num<= 9; num++){
-            if(isPossible(board, r, c, num)){
-                board[r][c]= (char)('0'+ num);
-                if(sudokuSolver(board, list, idx+ 1)){
-                    return true;
+
+        if(mapping[str2.charAt(0)- 'a']== 0){
+            return false;
+        }
+
+        if(mapping[str2.charAt(0)- 'a']== 0){
+            return false;
+        }
+
+        int num1= stringToNum(str1);
+        int num2= stringToNum(str2);
+        int num3= stringToNum(str3);
+
+        return (num1+ num2== num3);
+
+    }
+
+    public static int crypto(String str, int idx) {
+        if (idx == str.length()) {
+            if (isValidMapping()) {
+                for(int i= 0; i< str.length(); i++){
+                    char ch= str.charAt(i);
+                    System.out.print(ch+ "="+ mapping[ch- 'a']+ ", ");
                 }
-                board[r][c]= '0';
+                System.out.println();
+                return 1;
             }
+
+            return 0;
         }
-        
-        return false;
+
+        int count = 0;
+        char ch= str.charAt(idx);
+        for (int num = 0; num <= 9; num++) {
+            if (!isNumUsed[num]) {
+                isNumUsed[num] = true;
+                mapping[ch- 'a']= num;
+
+                count += crypto(str, idx + 1);
+                
+                mapping[ch- 'a']= 0;
+                isNumUsed[num] = false;
+            }
+
+        }
+        return count;
     }
-    
-    private boolean isPossible(char[][] board, int row, int col, int num){
-        int[][] dir= {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
-        
-        for(int i= 0; i< dir.length; i++){
-            for(int rad= 1; rad<= 9; rad++){
-                int r= row+ rad* dir[i][0];
-                int c= col+ rad* dir[i][1];
-                if(r>= 0 && c>= 0 && r< 9 && c< 9){
-                    if(board[r][c]== (char)('0'+ num) ){
-                        return false;
-                    }
-                }   
-                else
-                    break;
-            }
+
+    public static void crypto() {
+        String str = str1 + str2 + str3;
+        int[] freq = new int[26];
+        for (int i = 0; i < str.length(); i++) {
+            freq[str.charAt(i) - 'a']++;
         }
-        
-        int i= 0;
-        if(row>= 0 && row<= 2){
-            i= 0;
+
+        str = "";
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] > 0)
+                str += (char) (i + 'a');
         }
-        else if(row>= 3 && row<= 5){
-            i= 3;
-        }
-        else if(row>= 6 && row<= 8){
-            i= 6;
-        }
-        
-        int j= 0;
-        if(col>= 0 && col<= 2){
-            j= 0;
-        }
-        else if(col>= 3 && col<= 5){
-            j= 3;
-        }
-        else if(col>= 6 && col<= 8){
-            j= 6;
-        }
-        
-        for(int n= i; n<= i+ 2; n++){
-            for(int m= j; m<= j+ 2; m++){
-                if(board[n][m]== (char) ('0'+ num)){
-                    return false;
-                }                   
-            }
-        }
-        
-        return true;
-        
+
+        if (str.length() > 10)
+            return;
+
+        crypto(str, 0);
     }
+
+    public static void main(String[] args){      
+        boolean[][] boxes= new boolean[4][4];
+        // System.out.println(queenCombinations(3, boxes, 0, 0, ""));
+        // System.out.println(queenPermutation(3, boxes, 0, ""));
+        // System.out.println(queenCombinations2D_1(4, 4, 0, 0, ""));
+        // System.out.println(queenPermutations2D_1(boxes, 4, 4, 0, ""));
+        // System.out.println(NQueens_Combinations(boxes, 4, 0, 0, ""));
+        // System.out.println(NQueens_Permutations(boxes, 4, 0, ""));
+        crypto();
+    }
+
     
     
     
