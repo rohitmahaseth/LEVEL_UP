@@ -1,93 +1,62 @@
-import java.util.*;
+//bits
 
-public class Mar31 {
-    
-    static String str1 = "send", str2 = "more", str3 = "money";
-    static boolean[] isNumUsed = new boolean[10];
-    static int[] mapping= new int[26];
-
-    public static void crypto() {
-        String str = str1 + str2 + str3;
-        int[] freq = new int[26];
-        for (int i = 0; i < str.length(); i++) {
-            freq[str.charAt(i) - 'a']++;
-        }
-
-        str = "";
-        for (int i = 0; i < 26; i++) {
-            if (freq[i] > 0)
-                str += (char) (i + 'a');
-        }
-
-        if (str.length() > 10)
-            return;
-
-        crypto(str, 0);
+public class Mar31{
+    public static int leftshift(int x){
+        return x<< 2;
     }
 
-    private static int stringToNum(String str){
-        int res= 0;
-        for(int i= 0; i< str.length(); i++){
-            int val= mapping[str.charAt(i)- 'a'];
-            res= res* 10+ val;
-        }
-
-        return res;
-    }
-    
-    public static boolean isValidMapping(){
-        if(mapping[str1.charAt(0)- 'a']== 0){
-            return false;
-        }
-
-        if(mapping[str2.charAt(0)- 'a']== 0){
-            return false;
-        }
-
-        if(mapping[str2.charAt(0)- 'a']== 0){
-            return false;
-        }
-
-        int num1= stringToNum(str1);
-        int num2= stringToNum(str2);
-        int num3= stringToNum(str3);
-
-        return (num1+ num2== num3);
-
+    public static int rightshift(int x){
+        return x>> 2;
     }
 
-    public static int crypto(String str, int idx) {
-        if (idx == str.length()) {
-            if (isValidMapping()) {
-                for(int i= 0; i< str.length(); i++){
-                    char ch= str.charAt(i);
-                    System.out.print(ch+ "="+ mapping[ch- 'a']+ ", ");
-                }
-                System.out.println();
-                return 1;
+    public static int setTrue(int num, int idx){
+        int mask= 1;
+        mask= mask<< idx;
+        return num | mask;
+    }
+
+    public static int setFalse(int num, int idx){
+        int mask=  1;
+        mask= ~(mask<< idx);
+        return num & mask;
+    }
+
+    public static int multiplyBy2(int n, int pow){
+        return n<< pow;
+    }
+
+    public static int divideBy2(int n, int pow){
+        return n>> pow;
+    }
+
+    public static boolean isEven(int n){
+        return (n & 1)== 0;
+    }
+
+    //leetcode 231
+    public boolean isPowerOfTwo(int n) {
+        return (n> 0 && (n & (n-1))== 0);
+    }
+
+    //342
+    public boolean isPowerOfFour(int n) {
+        if(!isPowerOfTwo(n))
+            return false;
+
+        int count= 0;
+        while(n!= 0){
+            if((n & 1 )== 0){
+                count++;
             }
-
-            return 0;
+            n >>>= 1;
         }
-
-        int count = 0;
-        char ch= str.charAt(idx);
-        for (int num = 0; num <= 9; num++) {
-            if (!isNumUsed[num]) {
-                isNumUsed[num] = true;
-                mapping[ch- 'a']= num;
-
-                count += crypto(str, idx + 1);
-                
-                mapping[ch- 'a']= 0;
-                isNumUsed[num] = false;
-            }
-
-        }
-        return count;
+        return (count & 1)== 0;
     }
+}
 
-    public static void main (String[] args){
-        crypto();
+
+    
+    public static void main(String[] args){
+        System.out.println(isOdd(56));
     }
 }
