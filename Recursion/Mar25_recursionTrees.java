@@ -1,6 +1,6 @@
 // 8 types of recursion trees
 
-public class Mar25 {
+public class Mar25_recursionTrees {
     
     //part 1
     public static int coinChangePermutation_IN(int[] coins, int tar, String psf){

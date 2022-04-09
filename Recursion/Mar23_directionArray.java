@@ -1,5 +1,5 @@
 import java.util.*;
-public class Mar23{
+public class Mar23_directionArray{
 
     //without dir array
     public static int mazePath(int sr, int sc, int er, int ec, String psf){

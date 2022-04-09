@@ -1,7 +1,7 @@
 //Recursion Trees Questions
 import java.util.*;
 
-public class Mar28{
+public class Mar28_recTreesQues{
 
     //leetcode 17
     public static void main(String[] ags){

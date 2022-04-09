@@ -1,6 +1,6 @@
 import java.util.*;
 //NQueens
-public class Mar30 {
+public class Mar30_queens {
     public static int queenCombinations(int tnq, boolean[] boxes, int idx, int qutn, String psf){
         if(qutn== tnq){
             System.out.println(psf);
@@ -242,7 +242,7 @@ public class Mar30 {
         return false;
     }
 
-    //sudoku solver
+    //sudoku solver leetcode
     //1st Method
 
     public void solveSudoku(char[][] board) {
@@ -311,92 +311,113 @@ public class Mar30 {
         
     }
 
-// //2nd Method
-//     public void solveSudoku(char[][] board) {
-//         ArrayList<Integer> list= new ArrayList<>();
-//         int n= 9;
-//         for(int i= 0; i< n; i++){
-//             for(int j= 0; j< n; j++){
-//                 if(board[i][j]== '.'){
-//                     list.add(i* n+ j);
-//                 }
-//             }
-//         }
+//2nd method
+    boolean [][] rows= new boolean[10][10];
+    boolean [][] cols= new boolean[10][10];
+    boolean [][][] mat= new boolean[3][3][10];
+    public void solveSudoku02(char[][] board) {
+        ArrayList<Integer> list= new ArrayList<>();
+        int n= board.length;
+        for(int i= 0; i< n; i++){
+            for(int j= 0; j< n; j++){
+                if(board[i][j]== '.'){
+                    list.add(i* n+ j);
+                }
+                else{
+                    int num= (int)(board[i][j]- '0');
+                    rows[i][num]= cols[j][num]= mat[i/ 3][j/ 3][num]= true;
+                }
+            }
+        }
         
-//         boolean ans= sudokuSolver(board, list, 0);
-//     }
+        sudokuSolver02(board, list, 0);
+    }
     
-//     private boolean sudokuSolver(char[][] board, ArrayList<Integer> list, int idx){
-//         if(idx== list.size()){
-//             return true;
-//         }
+    public boolean sudokuSolver02(char[][] board, ArrayList<Integer> list, int idx){
+        int n= board.length;
+        if(idx== list.size()){
+            return true;
+        }
         
-//         int r= list.get(idx)/ 9;
-//         int c= list.get(idx)% 9;
+        int r= list.get(idx)/ n;
+        int c= list.get(idx)% n;
         
-//         for(int num= 1; num<= 9; num++){
-//             if(isPossible(board, r, c, num)){
-//                 board[r][c]= (char)('0'+ num);
-//                 if(sudokuSolver(board, list, idx+ 1)){
-//                     return true;
-//                 }
-//                 board[r][c]= '0';
-//             }
-//         }
+        for(int num= 1; num<= 9; num++){
+            if(!rows[r][num] && !cols[c][num] && !mat[r/ 3][c/ 3][num]){
+                rows[r][num]= cols[c][num]= mat[r/ 3][c/ 3][num]= true;
+                
+                board[r][c]= (char) (num+ '0');
+                if(sudokuSolver02(board, list, idx+ 1)){
+                    return true;
+                }
+                board[r][c]= '.';
+                
+                rows[r][num]= cols[c][num]= mat[r/ 3][c/ 3][num]= false;
+            }
+        }
         
-//         return false;
-//     }
+        return false;
+    }  
+
+    //3rd method (using bit)
+    int[] row= new int[10];
+    int[] col= new int[10];
+    int[][] mats= new int[3][3];
+    public void solveSudoku03(char[][] board) {
+        ArrayList<Integer> list= new ArrayList<>();
+        int n= board.length;
+        for(int i= 0; i< n; i++){
+            for(int j= 0; j< n; j++){
+                if(board[i][j]== '.'){
+                    list.add(i* n+ j);
+                }
+                else{
+                    int num= board[i][j]- '0';
+                    int mask= 1<< num;
+                    row[i]^= mask;
+                    col[j]^= mask;
+                    mats[i/ 3][j/ 3]^= mask;
+                }
+            }
+        }
+        
+        sudokuSolver03(board, list, 0);
+    }
     
-//     private boolean isPossible(char[][] board, int row, int col, int num){
-//         int[][] dir= {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
+    public boolean sudokuSolver03(char[][] board, ArrayList<Integer> list, int idx){
+        int n= board.length;
+        if(idx== list.size()){
+            return true;
+        }
         
-//         for(int i= 0; i< dir.length; i++){
-//             for(int rad= 1; rad<= 9; rad++){
-//                 int r= row+ rad* dir[i][0];
-//                 int c= col+ rad* dir[i][1];
-//                 if(r>= 0 && c>= 0 && r< 9 && c< 9){
-//                     if(board[r][c]== (char)('0'+ num) ){
-//                         return false;
-//                     }
-//                 }   
-//                 else
-//                     break;
-//             }
-//         }
+        int r= list.get(idx)/ n;
+        int c= list.get(idx)% n;
         
-//         int i= 0;
-//         if(row>= 0 && row<= 2){
-//             i= 0;
-//         }
-//         else if(row>= 3 && row<= 5){
-//             i= 3;
-//         }
-//         else if(row>= 6 && row<= 8){
-//             i= 6;
-//         }
+        for(int num= 1; num<= 9; num++){
+            int mask= 1<< num;
+            if((row[r] & mask)== 0 && (col[c] & mask)== 0 && (mats[r/ 3][c/ 3] & mask)== 0){
+                
+                row[r]^= mask;
+                col[c]^= mask;
+                mats[r/ 3][c/ 3]^= mask;
+                
+                board[r][c]= (char) (num+ '0');
+                if(sudokuSolver03(board, list, idx+ 1)){
+                    return true;
+                }
+                board[r][c]= '.';
+                
+                
+                row[r]^= mask;
+                col[c]^= mask;
+                mats[r/ 3][c/ 3]^= mask;
+            }
+        }
         
-//         int j= 0;
-//         if(col>= 0 && col<= 2){
-//             j= 0;
-//         }
-//         else if(col>= 3 && col<= 5){
-//             j= 3;
-//         }
-//         else if(col>= 6 && col<= 8){
-//             j= 6;
-//         }
-        
-//         for(int n= i; n<= i+ 2; n++){
-//             for(int m= j; m<= j+ 2; m++){
-//                 if(board[n][m]== (char) ('0'+ num)){
-//                     return false;
-//                 }                   
-//             }
-//         }
-        
-//         return true;
-        
-//     }
+        return false;
+    }
+
+//cryto Matic
 
     static String str1 = "send", str2 = "more", str3 = "money";
     static boolean[] isNumUsed = new boolean[10];
