@@ -56,9 +56,71 @@ public class Mar31_bits{
         return (count & 1) == 0;
     }
 
-    //leetcode 191
-    
+     // 136
+     public int singleNumber(int[] nums) {
+        int ans = 0;
+        for (int ele : nums) {
+            ans ^= ele;
+        }
 
+        return ans;
+
+    }
+
+    // 268
+    public int missingNumber(int[] nums) {
+        int n = nums.length, ans = n, i = 0;
+        while (i < n) {
+            ans ^= nums[i] ^ (i++);
+
+        }
+        return ans;
+    }
+
+    // 191
+
+    public int hammingWeight_1(int n) {
+        int count = 0, i = 0;
+        while (i < 32) {
+            if ((n & (1 << i)) != 0)
+                count++;
+            i++;
+        }
+
+        return count;
+    }
+
+    public int hammingWeight_2(int n) {
+        int count = 0, i = 0;
+        while (n != 0) {
+            if ((n & 1) != 0)
+                count++;
+            n >>>= 1;
+        }
+
+        return count;
+    }
+
+    public int hammingWeight_3(int n) {
+        int count = 0;
+        while (n != 0) {
+            count++;
+            n = (n & (n - 1));
+        }
+
+        return count;
+    }
+
+    // 338
+    public int[] countBits(int n) {
+        int[] ans = new int[n + 1];
+        for (int i = 1; i <= n; i++) {
+            ans[i] = ans[i & (i - 1)] + 1;
+        }
+
+        return ans;
+
+    }
      
     public static void main(String[] args){
         System.out.println(isPowerOfFour(64));
