@@ -25,12 +25,11 @@ public class Apr08_NqueensBits{
                 diags[r- c+ n- 1]= false;
                 antidiag[r+ c]= false;
             }
-
         }
         return count;
     }
 
-    static int row = 0, col = 0, diag = 0, adiag = 0;
+    
 
     public static int Nqueens02(int n, int tnq, int bno, String psf) {
         if (tnq == 0) {
@@ -58,6 +57,8 @@ public class Apr08_NqueensBits{
         return count;
     }
 
+    static int row = 0, col = 0, diag = 0, adiag = 0;
+
     public static int Nqueens03(int n, int floor, String psf) {
         if (floor == n) {
             System.out.println(psf);
@@ -83,6 +84,8 @@ public class Apr08_NqueensBits{
         }
         return count;
     }
+
+
     public static void main(String[] args) {
         // int tnq= 4;
         int n= 4;
