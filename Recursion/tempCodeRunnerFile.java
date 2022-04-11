@@ -1,7 +1,4 @@
-import java.util.*;
-import java.io.*;
-public class Replicon {
-    public static void main (String[] args){
+public static void main (String[] args){
         Scanner scn= new Scanner(System.in);
         int n= scn.nextInt();
         int[] vol= new int[n];
@@ -42,28 +39,3 @@ public class Replicon {
 
         return ans;
      }
-
-    //1st Question
-    public static int firstOccurence(String s, String x){
-        int i= 0, j= 0, idx= 0;
-        while(i< s.length() || j< x.length() ){
-            while(s.charAt(i)!= x.charAt(j)){
-                i++;
-            }
-            idx= i;
-            while( j<x.length() && (s.charAt(i)== x.charAt(j) || x.charAt(j)== '*' ) ){
-                i++;
-                j++;
-            }
-            if(j== x.length()){
-                return idx;
-            }
-
-            j= 0;
-        }
-        return -1;
-    }
-
-   
-
-}
