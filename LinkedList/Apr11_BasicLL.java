@@ -22,7 +22,7 @@ public class Apr11_BasicLL{
 
     //first mid
     public ListNode middleNode1(ListNode head){
-        if(head== null || head.next== null) return head;
+        if(head== null && head.next== null) return head;
         ListNode slow= head;
         ListNode fast= head;
         while(fast.next!= null && fast.next.next!= null){
@@ -34,15 +34,14 @@ public class Apr11_BasicLL{
     }
 
     public int length(ListNode head){
-        ListNode curr= new ListNode();
-        curr= head;
-        int len= 0;
+        ListNode curr= head;
+        int idx= 0;
         while(curr!= null){
             curr= curr.next;
-            len++;
+            idx++;
         }
 
-        return len;
+        return idx;
     }
 
     //206. Reverse Linked List
@@ -80,11 +79,59 @@ public class Apr11_BasicLL{
                 flag= false;
                 break;
             }
+        }      
+        mid.next= reverseList(nHead);
+        return flag;       
+    }
+
+    // 143. Reorder List
+    public void reorderList(ListNode head) {
+        ListNode mid= middleNode1(head), nHead= mid.next;
+        mid.next= null;
+        nHead= reverseList(nHead);
+        ListNode c1= head, c2= nHead;
+       
+        while(c2!= null){
+            ListNode f1= c1.next;
+            c1.next =c2;
+            c1= f1;
+            
+            ListNode f2= c2.next;
+            c2.next= c1;
+            c2= f2;
+        }            
+    }
+
+    // leetcode 21
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode curr= new ListNode();
+        if(list1.val< list2.val){
+            curr= list1;
+            list1= list1.next;
+        }
+        else{
+            curr= list2;
+            list2= list2.next;
         }
         
-        mid.next= reverseList(nHead);
-        return flag;
+        while(list1!= null && list2!= null){
+            if(list1.val<= list2.val){
+                curr.next= list1;
+                list1= list1.next;
+            }
+            else{
+                curr.next= list2;
+                list2= list2.next;
+            }
+        }
         
+        if(list1!= null)
+            curr.next= list1;
+        else
+            curr.next= list2;
+        
+        return curr;
     }
+
 
 }
