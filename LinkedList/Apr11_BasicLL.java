@@ -133,5 +133,133 @@ public class Apr11_BasicLL{
         return curr;
     }
 
+    //leetcode 21
+    public ListNode mergeTwoLists1(ListNode list1, ListNode list2) {
+        if(list1== null || list2== null){
+           return list1== null ? list2: list1;
+        } 
+        
+        ListNode dNode= new ListNode(-1);
+        ListNode pre= dNode, c1= list1, c2= list2;
+        
+        while(c1!= null && c2!= null){
+            if(c1.val<= c2.val){
+                pre.next= c1;
+                c1= c1.next;
+            }
+            else{
+                pre.next= c2;
+                c2= c2.next;
+            }
+            pre= pre.next;
+        }
+        
+        pre.next= c1== null ? c2: c1;
+        return dNode.next;      
+    }
+
+    //pepcoding Unfold LinkedList
+    public void unfold(ListNode head) {
+        if(head== null && head.next== null) return;
+        ListNode h1= head, h2= head.next, c1= h1, c2= h2;
+        
+        while(c2!= null && c2.next!= null){
+            ListNode f= c2.next;
+            c1.next= f;
+            c2.next= f.next;
+            
+            c1= f;
+            c2= f.next;
+        }
+        
+        c1.next= reverseList(h2);
+        
+    }
+
+    public void unfold2(ListNode head) {
+        if(head== null && head.next== null) return;
+        ListNode dN1= new ListNode(-1);
+        ListNode dN2= new ListNode(-1);
+        ListNode pre1= dN1, pre2= dN2, c1= head, c2= head.next;
+        
+        while(c1!= null && c2!= null){
+            pre1.next= c1;
+            pre1= c1;
+            c1= c2.next;
+            
+            pre2.next= c2;
+            pre2= c2;
+            if(c1!= null){
+                c2= c1.next;
+            }
+    
+        }
+        
+        if(c2!= null){
+            c2= c2.next= null;
+        }
+    
+        pre1.next= c1;
+        pre2.next= c2;
+        if(c1!= null){
+            pre1= c1;
+        }
+    
+        ListNode head2= reverseList(dN2.next);
+        pre1.next= head2;
+        
+        head= dN1.next;
+    }
+
+    //leetcode 19
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head== null || head.next== null) return null;
+        int tn= length(head);
+        if(n== tn){
+            return head.next;
+        }
+        int idx= 1;
+        ListNode curr= head;
+        while(idx< tn- n){
+            curr= curr.next;
+            idx++;
+        }
+        ListNode h2= curr.next.next;
+        curr.next.next= null;
+        curr.next= h2;
+        
+        return head;
+    }
+
+    //leetcode 2
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {  
+        ListNode ans= new ListNode(-1);
+        ListNode curr= ans;
+        ListNode c1= l1 , c2= l2;
+        int carry= 0;
+        while(c1!= null || c2!= null){
+            int val= carry;
+            if(c1!= null){
+                val+= c1.val;
+                c1= c1.next;
+            }
+            if(c2!= null){
+                val+= c2.val;
+                c2= c2.next;
+            }
+            
+            curr.val= val% 10;
+            carry= val/ 10;
+            
+            if(carry== 1 || c1!= null || c2!= null){
+                ListNode rans= new ListNode(carry);
+                curr.next= rans;
+                curr= rans; 
+            }                     
+        }
+        return ans;    
+    }
+
+    // subtract two LinkedList
 
 }
