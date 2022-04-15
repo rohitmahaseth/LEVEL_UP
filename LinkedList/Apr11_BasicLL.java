@@ -22,7 +22,7 @@ public class Apr11_BasicLL{
 
     //first mid
     public ListNode middleNode1(ListNode head){
-        if(head== null && head.next== null) return head;
+        if(head== null || head.next== null) return head;
         ListNode slow= head;
         ListNode fast= head;
         while(fast.next!= null && fast.next.next!= null){
@@ -160,7 +160,7 @@ public class Apr11_BasicLL{
 
     //pepcoding Unfold LinkedList
     public void unfold(ListNode head) {
-        if(head== null && head.next== null) return;
+        if(head== null || head.next== null) return;
         ListNode h1= head, h2= head.next, c1= h1, c2= h2;
         
         while(c2!= null && c2.next!= null){
@@ -177,7 +177,7 @@ public class Apr11_BasicLL{
     }
 
     public void unfold2(ListNode head) {
-        if(head== null && head.next== null) return;
+        if(head== null || head.next== null) return;
         ListNode dN1= new ListNode(-1);
         ListNode dN2= new ListNode(-1);
         ListNode pre1= dN1, pre2= dN2, c1= head, c2= head.next;
@@ -261,5 +261,47 @@ public class Apr11_BasicLL{
     }
 
     // subtract two LinkedList
+    public ListNode subtractTwoNumbers(ListNode l1, ListNode l2) {
+        if(l1.val== 0 || l2.val== 0){
+            return l1.val== 0 ? l2: l1;
+        }
+        
+        ListNode h1= reverseList(l1);
+        ListNode h2= reverseList(l2);
+        ListNode ans= new ListNode(-1);
+        ListNode curr= ans, c1= h1, c2= h2;
+        if(length(h1)< length(h2)){
+            c1= h2;
+            c2= h1;
+        }
+        int carry= 0;
+        while(c1!= null ){
+            int val= carry;
+            val+= c1.val;
+            val-= (c2!= null ? c2.val: 0);
+            if(val< 0){
+                val+= 10;
+                carry= -1;
+            }
+            else{
+                carry= 0;
+            }
+            
+            c1= c1.next;
+            c2= (c2!= null ? c2.next: null);
+            
+            curr.val= val;
+            if(c1!= null){
+                curr= curr.next= new ListNode(-1);
+            }
+        }
+        curr= reverseList(ans);
+        while(curr!= null && curr.val== 0){
+            curr= curr.next;
+        }
+        
+        return curr== null? new ListNode(0): curr;
+        
+      }
 
 }
