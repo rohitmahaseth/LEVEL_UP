@@ -233,6 +233,8 @@ public class Apr11_BasicLL{
 
     //leetcode 2
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {  
+        l1= reverseList(l1);
+        l2= reverseList(l2);
         ListNode ans= new ListNode(-1);
         ListNode curr= ans;
         ListNode c1= l1 , c2= l2;
@@ -257,7 +259,10 @@ public class Apr11_BasicLL{
                 curr= rans; 
             }                     
         }
-        return ans;    
+        l1= reverseList(l1);
+        l2= reverseList(l2);
+    
+        return reverseList(ans);    
     }
 
     // subtract two LinkedList
@@ -274,6 +279,7 @@ public class Apr11_BasicLL{
             c1= h2;
             c2= h1;
         }
+        
         int carry= 0;
         while(c1!= null ){
             int val= carry;
