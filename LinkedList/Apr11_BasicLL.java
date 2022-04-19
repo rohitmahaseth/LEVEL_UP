@@ -231,6 +231,59 @@ public class Apr11_BasicLL{
         return head;
     }
 
+    // //leetcode 19(2nd method)
+    public ListNode removeNthFromEnd1(ListNode head, int n){
+        if(head== null || head.next== null) return head;
+        ListNode a= head, b= head;
+        while(n--> 0){
+            b= b.next;
+        }
+
+        if(b== null){
+            ListNode rn= head;
+            head= head.next;
+            rn.next= null;
+            return head;
+        }
+
+        while(b.next!= null){
+            a= a.next;
+            b= b.next;
+        }  
+
+        ListNode rn= a.next;
+        a.next= rn.next;
+        rn.next= null;
+
+        return head;
+    }
+
+    // 
+    public void removeNthFromEnd1_followUp(ListNode head, int n){
+        if(head== null || head.next== null) return;
+        ListNode a= head, b= head;
+        while(n--> 0){
+            b= b.next;
+        }
+
+        if(b== null){
+            a.val= a.next.val;
+            ListNode rn= a.next;
+            a.next= rn.next;
+            rn.next= null;
+            return;
+        }
+
+        while(b.next!= null){
+            a= a.next;
+            b= b.next;
+        }  
+
+        ListNode rn= a.next;
+        a.next= rn.next;
+        rn.next= null;
+    }
+
     //leetcode 2
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {  
         l1= reverseList(l1);
@@ -266,9 +319,25 @@ public class Apr11_BasicLL{
     }
 
     // subtract two LinkedList
+    public int isBiggerList(ListNode l1, ListNode l2){
+        int len1= length(l1), len2= length(l2);
+        if(len1== len2){
+            ListNode c1= l1, c2= l2;
+            while(c1!= null){
+                if(c1.val!= c2.val) return c1.val- c2.val;
+                c1= c1.next;
+                c2= c2.next;               
+            }
+        }
+
+        return len1- len2;
+    }
+
     public ListNode subtractTwoNumbers(ListNode l1, ListNode l2) {
-        if(l1.val== 0 || l2.val== 0){
-            return l1.val== 0 ? l2: l1;
+        if(isBiggerList(l1, l2)< 0){
+            ListNode temp= l1;
+            l1= l2;
+            l2= temp;
         }
         
         ListNode h1= reverseList(l1);
@@ -304,10 +373,30 @@ public class Apr11_BasicLL{
         curr= reverseList(ans);
         while(curr!= null && curr.val== 0){
             curr= curr.next;
+        }       
+        return curr== null? new ListNode(0): curr;       
+    }
+   
+    // pepcoding
+    public static ListNode removeDuplicates(ListNode head) {
+        if(head== null || head.next== null) return head; 
+        ListNode prev= head, curr= head.next;
+        
+        while(curr!= null){
+            if(prev.val!= curr.val){
+                prev.next= curr;
+                prev= curr;
+            }
+            curr= curr.next;
         }
+        prev.next= null;
         
-        return curr== null? new ListNode(0): curr;
-        
-      }
+        return head;
+    }
+
+
+    // pepcoding
+    
+
 
 }
