@@ -50,7 +50,7 @@ public class Mar23_directionArray{
 
         int count= 0;
         for(int i= 0; i< dir.length; i++){
-            for(int j= 1; sr+ j<= er && sc+ j<= ec ; j++){
+            for(int j= 1; j<= Math.max(dr,dc); j++){
                 int r= sr+ j* dir[i][0];
                 int c= sc+ j* dir[i][1];
 
@@ -80,7 +80,6 @@ public class Mar23_directionArray{
             if (r >= 0 && c >= 0 && r <= er && c <= ec && !vis[r][c]) {
                 count += floodfill(r, c, er, ec, vis, dir, dirS, psf + dirS[d]);
             }
-
         }
         vis[sr][sc] = false;
         return count;
