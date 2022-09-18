@@ -363,8 +363,5 @@ public class Lec_1 {
         
         return ans;
     }
-    
-    
-
 
 }
